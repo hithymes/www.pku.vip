@@ -31,7 +31,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand css75d40ab7716c4f" href="#" style="color:#94070A;"><span style="font-size:150%;">北大风云</span></a>
+        <a class="navbar-brand css75d40ab7716c4f" href="/" style="color:#94070A;"><span style="font-size:150%;">北大风云</span></a>
       </div>
       <div class="collapse navbar-collapse" id="top-navbar">
         <ul class="nav navbar-nav navbar-right">
@@ -47,7 +47,7 @@
       <!-- Search panel -->
       <div class="col-md-6">
         <div class="panel panel-default">
-          <div class="panel-heading">基本搜索</div>
+          <div class="panel-heading">信息搜索</div>
           <div class="panel-body">
             <div class="radio">
               <label><input type="radio" name="scope" autocomplete="off" checked="checked" value="all"> 互联网</label>
@@ -55,6 +55,7 @@
             </div>
             <div class="form-group">
               <form class="form-inline">
+                <input type="text" style="display:none"/>
                 <input type="text" id="search-word" class="form-control" placeholder="请输入要搜索的内容..." />
                 <a href="javascript:baiduSearch();" class="btn btn-default"><i class="fa fa-paw fa-fw"></i> 搜百度</a>
                 <a href="javascript:sogouSearch();" class="btn btn-default"><i class="fa fa-qq fa-fw"></i> 搜腾讯</a>
@@ -67,17 +68,18 @@
       
       <div class="col-md-6">
         <div class="panel panel-default">
-          <div class="panel-heading">学术搜索</div>
+          <div class="panel-heading">资料搜索</div>
           <div class="panel-body">
             <div class="radio">
               <label><input type="radio" name="lang" autocomplete="off" checked="checked" value="zh"> 中文文献</label>
-              <label><input type="radio" name="lang" autocomplete="off" value="en"> 英文文献
+              <label><input type="radio" name="lang" autocomplete="off" value="en" disabled="disabled"> 英文文献
             </div>
             <div class="form-group">
               <form class="form-inline">
-                <input type="text" id="search-word" class="form-control" placeholder="请输入要搜索的内容..." />
-                <a href="javascript:baiduSearch();" class="btn btn-default"><i class="fa fa-paw fa-fw"></i> 百度文库</a>
-                <a href="javascript:sogouSearch();" class="btn btn-default"><i class="fa fa-book fa-fw"></i> 知网</a>
+                <input type="text" style="display:none"/>
+                <input type="text" id="article-word" class="form-control" placeholder="请输入要搜索的内容..." />
+                <a href="javascript:wenkuSearch();" class="btn btn-default"><i class="fa fa-paw fa-fw"></i> 搜文库</a>
+                <a href="javascript:xueshuSearch();" class="btn btn-default"><i class="fa fa-paw fa-fw"></i> 搜学术</a>
               </form>
             </div>
           </div>
@@ -184,6 +186,15 @@
   </form>
   
   <form id="weiboForm" target="_blank"></form>
+  
+  <form id="wenkuForm" target="_blank">
+    <input type="hidden" name="word" />
+    <input type="hidden" name="ie" value="utf-8" />
+  </form>
+  
+  <form id="xueshuForm" target="_blank">
+    <input type="hidden" name="wd" />
+  </form>
   <!-- /search form (hidden) -->
   
   <script src="http://s1.bdstatic.com/r/www/cache/global/js/BaiduHttps_20150714_zhanzhang.js"></script>
@@ -208,6 +219,20 @@
     function weiboSearch() {
       var form = document.getElementById("weiboForm");
       form.action = "http://s.weibo.com/weibo/" + document.getElementById("search-word").value + "&Refer=index";
+      form.submit();
+    }
+    
+    function wenkuSearch() {
+      var form = document.getElementById("wenkuForm");
+      form.action = "http://wenku.baidu.com/search";
+      form.word.value = document.getElementById("article-word").value;
+      form.submit();
+    }
+    
+    function xueshuSearch() {
+      var form = document.getElementById("xueshuForm");
+      form.action = "http://xueshu.baidu.com/s";
+      form.wd.value = document.getElementById("article-word").value;
       form.submit();
     }
   </script>
